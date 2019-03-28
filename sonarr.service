@@ -3,8 +3,8 @@ Description=Sonarr Daemon
 After=syslog.target network.target
 
 [Service]
-User=$USER
-Group=$GROUP
+User=sonarr
+Group=sonarr
 Type=simple
 ExecStart=/usr/bin/mono --debug /opt/Sonarr/Sonarr.exe -nobrowser
 TimeoutStopSec=20
