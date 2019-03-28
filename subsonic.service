@@ -1,0 +1,34 @@
+[Unit]
+Description=Subsonic media streaming solution
+
+[Service]
+Type=oneshot
+Environment="JAVA=java"
+Environment="SUBSONIC_HOME=/var/subsonic"
+Environment="SUBSONIC_HOST=0.0.0.0"
+Environment="SUBSONIC_PORT=4040"
+Environment="SUBSONIC_HTTPS_PORT=0"
+Environment="SUBSONIC_CONTEXT_PATH=/"
+Environment="SUBSONIC_MAX_MEMORY=150"
+Environment="SUBSONIC_PIDFILE="
+Environment="SUBSONIC_DEFAULT_MUSIC_FOLDER=/var/music"
+Environment="SUBSONIC_DEFAULT_PODCAST_FOLDER=/var/music/Podcast"
+Environment="SUBSONIC_DEFAULT_PLAYLIST_FOLDER=/var/playlists"
+WorkingDirectory=/opt/subsonic
+ExecStart=/usr/bin/java -Xmx${SUBSONIC_MAX_MEMORY}m \
+  			-Dsubsonic.home=${SUBSONIC_HOME} \
+  			-Dsubsonic.host=${SUBSONIC_HOST} \
+ 			-Dsubsonic.port=${SUBSONIC_PORT} \
+  			-Dsubsonic.httpsPort=${SUBSONIC_HTTPS_PORT} \
+  			-Dsubsonic.contextPath=${SUBSONIC_CONTEXT_PATH} \
+  			-Dsubsonic.defaultMusicFolder=${SUBSONIC_DEFAULT_MUSIC_FOLDER} \
+  			-Dsubsonic.defaultPodcastFolder=${SUBSONIC_DEFAULT_PODCAST_FOLDER} \
+  			-Dsubsonic.defaultPlaylistFolder=${SUBSONIC_DEFAULT_PLAYLIST_FOLDER} \
+  			-Djava.awt.headless=true \
+  			-verbose:gc \
+  			-jar /opt/subsonic/subsonic-booter-jar-with-dependencies.jar 
+User=subsonic
+Group=subsonic
+
+[Install]
+WantedBy=multi-user.target
