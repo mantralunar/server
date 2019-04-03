@@ -4,7 +4,8 @@ After=syslog.target network.target
 
 [Service]
 User=radarr
-Group=radarr
+Group=users
+UMask=002
 
 Type=simple
 ExecStart=/usr/bin/mono --debug /opt/Radarr/Radarr.exe -nobrowser
