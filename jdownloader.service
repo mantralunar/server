@@ -8,7 +8,7 @@ Type=oneshot
 ExecStart=/usr/bin/java -Djava.awt.headless=true -jar /opt/jdownloader/JDownloader.jar
 RemainAfterExit=yes
 User=jdownloader
-Group=users
+Group=media
 UMask=002
 
 [Install]
