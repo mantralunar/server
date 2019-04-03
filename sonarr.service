@@ -4,9 +4,10 @@ After=syslog.target network.target
 
 [Service]
 User=sonarr
-Group=sonarr
+Group=users
+UMask=002
 Type=simple
-ExecStart=/usr/bin/mono --debug /opt/Sonarr/Sonarr.exe -nobrowser
+ExecStart=/usr/bin/mono --debug /opt/Sonarr/Sonarr.exe -nobrowser -data=/var/lib/sonarr
 TimeoutStopSec=20
 KillMode=process
 Restart=on-failure
