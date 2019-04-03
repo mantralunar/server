@@ -4,7 +4,7 @@ After=syslog.target network.target
 
 [Service]
 User=sonarr
-Group=users
+Group=media
 UMask=002
 Type=simple
 ExecStart=/usr/bin/mono --debug /opt/Sonarr/Sonarr.exe -nobrowser -data=/var/lib/sonarr
