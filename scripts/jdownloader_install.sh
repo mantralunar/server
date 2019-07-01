@@ -29,6 +29,6 @@ Group=root
 WantedBy=multi-user.target
 EOT
 
-sudo systemctl enable jdownloader.service
+systemctl enable jdownloader.service
 systemctl daemon-reload
-sudo systemctl start jdownloader.service
+systemctl start jdownloader.service
