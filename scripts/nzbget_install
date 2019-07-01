@@ -1,0 +1,36 @@
+#Remove existing/previous installation
+systemctl stop nzbget.service
+systemctl disable nzbget.service
+rm /etc/systemd/system/nzbget.service
+systemctl daemon-reload
+rm -R /opt/nzbget
+
+#NZBGet Download and Installation
+wget https://nzbget.net/download/nzbget-latest-bin-linux.run
+sh nzbget-latest-bin-linux.run --destdir /opt/nzbget
+rm nzbget-latest-bin-linux.run
+
+#Systemd Unit
+cat <<EOT >> /etc/systemd/system/nzbget.service
+[Unit]
+Description=NZBGet Daemon
+Documentation=http://nzbget.net/Documentation
+After=network.target
+
+[Service]
+User=root
+Group=root
+Type=forking
+ExecStart=/opt/nzbget/nzbget -D
+ExecStop=/opt/nzbget/nzbget -Q
+ExecReload=/opt/nzbget/nzbget -O
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOT
+
+systemctl enable nzbget.service
+systemctl daemon-reload
+systemctl start nzbget.service
