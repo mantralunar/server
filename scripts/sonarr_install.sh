@@ -3,11 +3,12 @@ systemctl stop sonarr.service
 systemctl disable sonarr.service
 rm /etc/systemd/system/sonarr.service
 systemctl daemon-reload
+rm -R /opt/Sonarr/
 
 #Download and Installation
-wget http://download.sonarr.tv/v3/phantom-develop/3.0.1.526/Sonarr.phantom-develop.3.0.1.526.linux.tar.gz -P /tmp/
-tar xf /tmp/Sonarr.phantom-develop.3.0.1.526.linux.tar.gz -C /opt/
-rm /tmp/Sonarr.phantom-develop.3.0.1.526.linux.tar.gz
+curl -L -o /tmp/Sonarr.phantom-develop.linux.tar.gz "https://services.sonarr.tv/v1/download/phantom-develop/latest?version=3&os=linux"
+tar xf /tmp/Sonarr.phantom-develop.linux.tar.gz -C /opt/
+rm /tmp/Sonarr.phantom-develop.linux.tar.gz
 
 #Systemd Unit
 cat <<EOT >> /etc/systemd/system/sonarr.service
