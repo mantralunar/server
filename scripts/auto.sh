@@ -10,8 +10,15 @@ if [ $1 = "move" ]; then
         if [ $(/usr/bin/find /media/.tmp/movies/ -name "*.mkv" | wc -l) = 0 ]; then
                 echo No movies found, skipping processing of Movies.
 	else
-		/bin/sed -i '/sorttitle/d' /media/.tmp/movies/*/movie.nfo
-		/bin/mv /media/.tmp/movies/* /media/Movies/
+		for d in /media/.tmp/movies/*/; do
+                        echo Found: "$(basename "$d")"
+			/bin/sed -i '/sorttitle/d' "$d"/movie.nfo
+			rm -R /media/Movies/"$(basename "$d")" 2>&1
+			sleep 1
+                        echo Importing: "$(basename "$d")"
+			mv "$d" /media/Movies/
+			echo Success: "$(basename "$d")"
+		done
 	fi
 
 	#Check for processed Shows
